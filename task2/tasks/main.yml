@@ -1,0 +1,18 @@
+---
+# tasks file for task2
+- name: installing httpd
+  package:
+    name: "httpd"
+    state: present
+  when: ansible_os_family== "RedHat"
+  register: x
+
+- name: downloading webpage
+  get_url:
+    dest: "/var/www/html"
+    url: "https://raw.githubusercontent.com/rithwik12345/HTML_TEST_CODE/master/index.html"
+  tags: webpage
+- name: starting service
+  service:
+    name: "httpd"
+    state: started
